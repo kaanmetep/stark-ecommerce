@@ -55,13 +55,14 @@ const Collection = () => {
     if (search === "") {
       return applyFilters(applySort(products));
     }
+    // IF USER SEARCHED FOR AN ITEM, WE FILTER IT.
     return applyFilters(
       applySort(
         products.filter((product) =>
           product.name.toLowerCase().includes(search.toLowerCase())
         )
       )
-    ); // IF USER SEARCHED FOR AN ITEM, WE FILTER IT.
+    );
   }, [products, category, type, sortOption, search]);
 
   return (
