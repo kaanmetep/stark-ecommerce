@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useShopContext } from "../contexts/ShopContext";
+import { toast } from "react-toastify";
 import Title from "../components/Title";
 import RelatedProducts from "../components/RelatedProducts";
 // TODO: LATER CREATE A ROUTE TO GET A SINGLE PRODUCT
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency } = useShopContext();
+  const { products, currency, onAddCartItem } = useShopContext();
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
@@ -14,8 +15,15 @@ const Product = () => {
     for (const el of products) {
       if (el._id === productId) {
         setProductData(el);
+        break;
       }
     }
+  };
+  const handleAddCard = (productId, size) => {
+    if (!size) {
+      return toast.error("Please select a size!");
+    }
+    onAddCartItem(productId, size);
   };
   useEffect(() => fetchProductData(), [productId, products]);
   useEffect(() => setImage(productData?.image[0]), [productData]);
@@ -60,7 +68,10 @@ const Product = () => {
               </p>
             ))}
           </div>
-          <button className="mr-auto mt-8 text-white bg-black py-3 px-8 uppercase active:bg-gray-800 hover:bg-gray-600 transition-all delay-[30ms]">
+          <button
+            className="mr-auto mt-8 text-white bg-black py-3 px-8 uppercase active:bg-gray-800 hover:bg-gray-600 transition-all delay-[30ms]"
+            onClick={() => handleAddCard(productData._id, size)}
+          >
             Add To Cart
           </button>
           <hr className="w-3/4 h-[2.5px] bg-gray-200 mt-8" />

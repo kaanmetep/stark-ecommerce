@@ -5,7 +5,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useShopContext } from "../contexts/ShopContext.jsx";
 const NavBar = () => {
   const [visible, setVisible] = useState(false);
-  const { showSearch, setShowSearch } = useShopContext();
+  const { showSearch, setShowSearch, cartItems } = useShopContext();
   const location = useLocation();
   const navigate = useNavigate();
   const onClickSearchIcon = () => {
@@ -64,12 +64,14 @@ const NavBar = () => {
             </div>
           </div>
         </div>
-        <div className="relative cursor-pointer">
-          <img src={assets.cart_icon} alt="cart_icon" className="w-4" />
-          <p className="absolute right-[-5px] bottom-[-8px] bg-black text-white rounded-full text-[8px] w-4 text-center leading-4 font-bold">
-            10
-          </p>
-        </div>
+        <NavLink to="/cart">
+          <div className="relative cursor-pointer">
+            <img src={assets.cart_icon} alt="cart_icon" className="w-4" />
+            <p className="absolute right-[-5px] bottom-[-8px] bg-black text-white rounded-full text-[8px] w-4 text-center leading-4 font-bold">
+              {cartItems.length}
+            </p>
+          </div>
+        </NavLink>
         <img
           src={assets.menu_icon}
           alt="menu_icon"
