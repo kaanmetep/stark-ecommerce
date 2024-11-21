@@ -1,9 +1,25 @@
 import React from "react";
 import { useState } from "react";
 import { assets } from "../assets/frontend_assets/assets.js";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useShopContext } from "../contexts/ShopContext.jsx";
 const NavBar = () => {
   const [visible, setVisible] = useState(false);
+  const { showSearch, setShowSearch } = useShopContext();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const onClickSearchIcon = () => {
+    if (location.pathname !== "/collection") {
+      navigate("/collection");
+      setShowSearch(true);
+    }
+    if (location.pathname === "/collection" && showSearch) {
+      setShowSearch(false);
+    }
+    if (location.pathname === "/collection" && !showSearch) {
+      setShowSearch(true);
+    }
+  };
   return (
     <div className="flex items-center justify-between mt-2">
       <Link to={"/"}>
@@ -32,15 +48,16 @@ const NavBar = () => {
           src={assets.search_icon}
           alt="search_icon"
           className="w-4 cursor-pointer"
+          onClick={onClickSearchIcon}
         />
-        <div className="group">
+        <div className="group z-10">
           <img
             src={assets.profile_icon}
             alt="profile_icon"
             className="w-4 cursor-pointer"
           />
           <div className=" group-hover:block absolute hidden  right-0 pt-4 px-10">
-            <div className="flex flex-col gap-2 py-3 px-4 text-gray-500 w-36 bg-slate-100">
+            <div className="flex flex-col gap-2 py-3 px-4 text-gray-800 w-36 bg-slate-100">
               <a href="">My Profile</a>
               <a href="">Orders</a>
               <a href="">Logout</a>
