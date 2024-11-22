@@ -11,7 +11,11 @@ const LatestCollection = () => {
   return (
     <div className="mt-16">
       <div className="py-8">
-        <Title text1={"LATEST"} text2={"COLLECTIONS"} />
+        <Title
+          text1={"LATEST"}
+          text2={"COLLECTIONS"}
+          className="justify-center"
+        />
         <div className="flex justify-center">
           <p className="sm:w-3/4 text-center text-gray-500 sm:leading-6 leading-5">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat

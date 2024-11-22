@@ -12,7 +12,7 @@ const BestSeller = () => {
   return (
     <div>
       <div className="py-8">
-        <Title text1={"BEST"} text2={"SELLERS"} />
+        <Title text1={"BEST"} text2={"SELLERS"} className="justify-center" />
         <div className="flex justify-center">
           <p className="sm:w-3/4 text-center text-gray-500 sm:leading-6 leading-5">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,

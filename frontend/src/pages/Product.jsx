@@ -7,23 +7,23 @@ import RelatedProducts from "../components/RelatedProducts";
 // TODO: LATER CREATE A ROUTE TO GET A SINGLE PRODUCT
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, onAddCartItem } = useShopContext();
+  const { products, currency, onAddCartItem, getItemById } = useShopContext();
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
   const fetchProductData = () => {
-    for (const el of products) {
-      if (el._id === productId) {
-        setProductData(el);
-        break;
-      }
+    const item = getItemById(productId);
+    if (item) {
+      setProductData(item);
     }
   };
   const handleAddCard = (productId, size) => {
     if (!size) {
       return toast.error("Please select a size!");
+    } else {
+      onAddCartItem(productId, size);
+      toast.success("Item added to your cart!");
     }
-    onAddCartItem(productId, size);
   };
   useEffect(() => fetchProductData(), [productId, products]);
   useEffect(() => setImage(productData?.image[0]), [productData]);
@@ -83,7 +83,11 @@ const Product = () => {
         </div>
       </div>
       <div className="mt-16">
-        <Title text1={"RELATED"} text2={"PRODUCTS"} />
+        <Title
+          text1={"RELATED"}
+          text2={"PRODUCTS"}
+          className="justify-center"
+        />
         <RelatedProducts
           category={productData?.category}
           subCategory={productData?.subCategory}
