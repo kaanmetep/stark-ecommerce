@@ -17,7 +17,7 @@ const CartItem = ({ cartItemObj }) => {
 
   return (
     <div className="grid grid-cols-[6fr,2fr,1fr] justify-between items-center border-t border-b">
-      <div className="flex gap-4 p-3">
+      <div className="flex flex-col sm:flex-row gap-4 p-3">
         <img src={currentItem?.image[0]} alt="item_image" className="w-20" />
         <div>
           <p className="text-lg font-medium">{currentItem?.name}</p>
@@ -34,9 +34,9 @@ const CartItem = ({ cartItemObj }) => {
       <input
         type="number"
         min="1"
-        max="100"
+        max="50"
         step="1"
-        value={quantity}
+        value={quantity > 50 ? 50 : quantity}
         onChange={(e) => {
           const newQuantity = Number(e.target.value);
           setQuantity(newQuantity);
@@ -46,7 +46,13 @@ const CartItem = ({ cartItemObj }) => {
             newQuantity
           );
         }}
-        className="border w-16 h-8 py-1 px-2 flex items-center"
+        onKeyDown={(e) => {
+          // allow only up and down keys
+          if (e.key !== "ArrowUp" && e.key !== "ArrowDown") {
+            e.preventDefault();
+          }
+        }}
+        className="border w-16 h-8 py-1 px-2 flex items-center "
       />
       <img
         src={assets.bin_icon}
