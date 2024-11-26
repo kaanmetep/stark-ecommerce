@@ -1,10 +1,13 @@
 import React from "react";
 import Title from "../components/Title";
 import CartTotals from "../components/CartTotals";
+import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/frontend_assets/assets";
 import { useState } from "react";
+
 const PlaceOrder = () => {
   const [selectedPaymentType, setSelectedPaymentType] = useState(null);
+  const navigate = useNavigate();
   return (
     <div className="border-t">
       <div className="mt-10 ">
@@ -114,7 +117,10 @@ const PlaceOrder = () => {
                 </div>
               </div>
             </div>
-            <button className="ml-auto mt-8 text-white uppercase bg-black py-2 px-12">
+            <button
+              className="ml-auto mt-8 text-white uppercase bg-black py-2 px-12"
+              onClick={() => navigate("/orders")}
+            >
               Place Order
             </button>
           </div>
