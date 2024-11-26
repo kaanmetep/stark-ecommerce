@@ -50,20 +50,22 @@ const NavBar = () => {
           className="w-4 cursor-pointer"
           onClick={onClickSearchIcon}
         />
-        <div className="group z-10">
-          <img
-            src={assets.profile_icon}
-            alt="profile_icon"
-            className="w-4 cursor-pointer"
-          />
-          <div className=" group-hover:block absolute hidden  right-0 pt-4 px-10">
-            <div className="flex flex-col gap-2 py-3 px-4 text-gray-800 w-36 bg-slate-100">
-              <a href="">My Profile</a>
-              <a href="">Orders</a>
-              <a href="">Logout</a>
+        <Link to={"/login"}>
+          <div className="group z-10">
+            <img
+              src={assets.profile_icon}
+              alt="profile_icon"
+              className="w-4 cursor-pointer"
+            />
+            <div className=" group-hover:block absolute hidden  right-0 pt-4 px-10">
+              <div className="flex flex-col gap-2 py-3 px-4 text-gray-800 w-36 bg-slate-100">
+                <a href="">My Profile</a>
+                <a href="">Orders</a>
+                <a href="">Logout</a>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
         <NavLink to="/cart">
           <div className="relative cursor-pointer">
             <img src={assets.cart_icon} alt="cart_icon" className="w-4" />
