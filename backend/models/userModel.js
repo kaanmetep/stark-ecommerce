@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -14,6 +13,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      minlength: [8, "Password has to be at least 8 characters."],
     },
     cartData: {
       type: Object,
@@ -21,10 +21,11 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    minimize: false, // Şema seviyesinde minimize devre dışı
+    minimize: false,
   }
 );
 
-const userModel = mongoose.models.user || mongoose.model("user", userSchema);
+const userModel =
+  mongoose.models.user || mongoose.model("user", userSchema, "users");
 
 export default userModel;

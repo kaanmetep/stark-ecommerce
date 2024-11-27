@@ -7,7 +7,7 @@ const connectDB = async () => {
   );
 
   try {
-    await mongoose.connect(`${process.env.MONGODB_URI}/StarkEcommerce`);
+    await mongoose.connect(`${process.env.MONGODB_URI}/starkdb`);
   } catch (error) {
     console.error("Initial DB Connection Failed:", error);
   }
