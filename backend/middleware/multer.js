@@ -2,7 +2,8 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   filename: (req, file, callback) => {
-    callback(null, file.originalname);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9); // Benzersiz isim
+    callback(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 

@@ -90,4 +90,20 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ status: false, message: err.message });
   }
 };
-export const adminLogin = async (req, res) => {};
+export const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (
+      email !== process.env.ADMIN_EMAIL ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Invalid admin credentials." });
+    }
+    const token = createToken(email + password);
+    res.status(200).json({ status: true, message: token });
+  } catch (err) {
+    res.status(500).json({ status: false, message: err.message });
+  }
+};
