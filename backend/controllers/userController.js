@@ -13,7 +13,7 @@ const comparePasswords = async (userPassword, hashedPassword) => {
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     // Check if fields are empty
@@ -44,7 +44,7 @@ const loginUser = async (req, res) => {
     res.status(500).json({ status: false, message: err.message });
   }
 };
-const registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     // Check if fields are not empty.
@@ -90,6 +90,4 @@ const registerUser = async (req, res) => {
     res.status(500).json({ status: false, message: err.message });
   }
 };
-const adminLogin = async (req, res) => {};
-
-export { loginUser, registerUser, adminLogin };
+export const adminLogin = async (req, res) => {};
