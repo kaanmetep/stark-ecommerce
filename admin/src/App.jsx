@@ -17,7 +17,7 @@ const App = () => {
           <Sidebar />
           <div className="py-4 px-8">
             <Routes>
-              <Route path="/" element={<Add />} />
+              <Route path="/" />
               <Route path="/add" element={<Add />} />
               <Route path="/list" element={<List />} />
               <Route path="/orders" element={<Orders />} />
