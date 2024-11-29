@@ -1,16 +1,28 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getProducts } from "../services/adminService";
+import { getProducts, deleteProduct } from "../services/adminService";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { toast } from "react-toastify";
 const List = () => {
   const [products, setProducts] = useState(null);
+  const fetchProducts = async () => {
+    const response = await getProducts();
+    setProducts(response);
+  };
+  const handleDeleteProduct = async (id) => {
+    const response = await deleteProduct(id);
+    if (response.status) {
+      toast.success("Item is deleted successfully.");
+      await fetchProducts();
+      return;
+    }
+    toast.error("Item couldn't delete", response.message);
+  };
   useEffect(() => {
     (async () => {
-      const response = await getProducts();
-      setProducts(response);
+      await fetchProducts();
     })();
   }, []);
-  console.log(products);
   return (
     <div>
       {products ? (
@@ -25,7 +37,10 @@ const List = () => {
           </div>
 
           {products.map((product) => (
-            <div className="grid grid-cols-[2fr,4fr,3fr,3fr,2fr]  items-center gap-x-6 bg-gray-50 mb-6 py-2 px-4 text-sm text-gray-800">
+            <div
+              className="grid grid-cols-[2fr,4fr,3fr,3fr,2fr]  items-center gap-x-6 bg-gray-50 mb-6 py-2 px-4 text-sm text-gray-800"
+              key={product._id}
+            >
               <img
                 src={product.image[0]}
                 alt="product_img"
@@ -34,7 +49,12 @@ const List = () => {
               <p>{product.name}</p>
               <p className="justify-self-center">{product.category}</p>
               <p>$ {product.price}</p>
-              <p className="cursor-pointer">X</p>
+              <p
+                className="cursor-pointer"
+                onClick={() => handleDeleteProduct(product._id)}
+              >
+                X
+              </p>
             </div>
           ))}
         </div>

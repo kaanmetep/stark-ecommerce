@@ -39,3 +39,16 @@ export const getProducts = async () => {
     throw err;
   }
 };
+export const deleteProduct = async (id) => {
+  try {
+    const response = await axios.delete(`${URL}/api/products/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err.message);
+    throw err;
+  }
+};
