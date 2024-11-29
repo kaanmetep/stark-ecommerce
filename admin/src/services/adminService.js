@@ -15,3 +15,17 @@ export const adminLogin = async (credentials) => {
     throw new Error(errorMessage);
   }
 };
+
+export const addProduct = async (productData) => {
+  try {
+    const response = await axios.post(`${URL}/api/products`, productData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err.message);
+    throw err;
+  }
+};

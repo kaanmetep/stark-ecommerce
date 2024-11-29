@@ -6,6 +6,7 @@ import List from "./pages/List";
 import Orders from "./pages/Orders";
 import PageNotFound from "./pages/PageNotFound";
 import ProtectRoute from "./pages/ProtectRoute";
+import { ToastContainer } from "react-toastify";
 import { Routes, Route } from "react-router-dom";
 const App = () => {
   return (
@@ -26,6 +27,16 @@ const App = () => {
           </div>
         </ProtectRoute>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        theme="light"
+      />
     </div>
   );
 };

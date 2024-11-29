@@ -1,7 +1,11 @@
 import React from "react";
 import { assets } from "../assets/assets";
 import { useState } from "react";
+import { addProduct } from "../services/adminService";
+import { toast } from "react-toastify";
+import LoadingSpinner from "../components/LoadingSpinner";
 const Add = () => {
+  const [itemAddLoading, setItemAddLoading] = useState(false);
   const [images, setImages] = useState({
     image1: "",
     image2: "",
@@ -14,7 +18,7 @@ const Add = () => {
     category: "men",
     subCategory: "topwear",
     price: "",
-    sizes: [],
+    sizes: ["S"],
     bestseller: false,
   });
   const handleImageUpload = (e) => {
@@ -33,9 +37,62 @@ const Add = () => {
         : [...prev.sizes, s],
     }));
   };
+  const resetForm = () => {
+    setProductData({
+      name: "",
+      description: "",
+      category: "men",
+      subCategory: "topwear",
+      price: "",
+      sizes: ["S"],
+      bestseller: false,
+    });
+    setImages({ image1: "", image2: "", image3: "", image4: "" });
+  };
+
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+    let checkAtLeastOneImage = false;
+    const formData = new FormData();
+
+    try {
+      setItemAddLoading(true);
+      for (const key in productData) {
+        if (key === "sizes") {
+          formData.append(key, JSON.stringify(productData[key]));
+        } else {
+          formData.append(key, productData[key]);
+        }
+      }
+
+      for (const key in images) {
+        if (images[key]) {
+          formData.append(key, images[key]);
+          checkAtLeastOneImage = true;
+        }
+      }
+
+      if (!checkAtLeastOneImage) {
+        throw new Error("Please add at least 1 image for this product!");
+      }
+
+      await addProduct(formData);
+      // if there in no error until this point, item added succesfully
+      toast.success("Item added successfully!");
+      resetForm();
+    } catch (err) {
+      const errorMessage =
+        err.response?.data ||
+        err?.message ||
+        "Item couldn't be added. Please try again.";
+      toast.error(errorMessage);
+    } finally {
+      setItemAddLoading(false);
+    }
+  };
 
   return (
-    <form>
+    <form onSubmit={handleSubmitForm}>
       <div className="flex flex-col gap-2">
         <p>Upload Image</p>
         <div className="flex gap-2">
@@ -170,6 +227,7 @@ const Add = () => {
               name="price"
               onChange={handleProductData}
               value={productData.price}
+              required
             />
           </div>
         </div>
@@ -235,9 +293,13 @@ const Add = () => {
           <p>Add to Bestseller</p>
         </div>
       </div>
-      <button className="mt-4 text-white bg-black py-2 px-10 uppercase tracking-wide hover:text-black hover:bg-white transition-all delay-[50ms]">
-        Add
-      </button>
+      {itemAddLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <button className="mt-4 text-white bg-black py-2 px-10 uppercase tracking-wide hover:text-black hover:bg-white transition-all delay-[50ms]">
+          Add
+        </button>
+      )}
     </form>
   );
 };
