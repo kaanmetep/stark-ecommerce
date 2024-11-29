@@ -29,3 +29,13 @@ export const addProduct = async (productData) => {
     throw err;
   }
 };
+
+export const getProducts = async () => {
+  try {
+    const response = await axios.get(`${URL}/api/products`);
+    return response.data.message;
+  } catch (err) {
+    console.error(err.message);
+    throw err;
+  }
+};
