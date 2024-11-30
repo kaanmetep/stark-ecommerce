@@ -64,7 +64,7 @@ const Product = () => {
                 key={index}
                 onClick={() => setSize(item)}
               >
-                {item}
+                {item.toUpperCase()}
               </p>
             ))}
           </div>

@@ -16,7 +16,7 @@ const App = () => {
       <div className="flex flex-grow">
         <ProtectRoute>
           <Sidebar />
-          <div className="py-4 px-8">
+          <div className="py-4 px-8 w-full">
             <Routes>
               <Route path="/" />
               <Route path="/add" element={<Add />} />

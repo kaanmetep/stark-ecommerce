@@ -1,18 +1,30 @@
-import { createContext, useContext, useState } from "react";
-import { products } from "../assets/frontend_assets/assets";
-
+import { createContext, useContext, useState, useEffect } from "react";
+import { getProducts } from "../services/productService";
+import { toast } from "react-toastify";
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
   const currency = "$";
   const shippingFee = 10;
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getProducts();
+      if (response) {
+        return setProducts(response);
+      }
+      toast.error("Items couldn't fetch");
+    })();
+  }, []);
+
   const getItemById = (productId) => {
     const item = products.find((item) => item._id === productId);
     return item;
-  }; // TODO: use this function for other places that you find item by its id..
+  };
 
   const calculateCartSubtotal = () => {
     const total = cartItems.reduce(

@@ -93,7 +93,7 @@ const Add = () => {
 
   return (
     <form onSubmit={handleSubmitForm}>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-fit ">
         <p>Upload Image</p>
         <div className="flex gap-2">
           <label htmlFor="image1" className="cursor-pointer">

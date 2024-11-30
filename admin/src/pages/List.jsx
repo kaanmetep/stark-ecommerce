@@ -26,7 +26,7 @@ const List = () => {
   return (
     <div>
       {products ? (
-        <div className="">
+        <div>
           <p className="mb-4">All Products List</p>
           <div className="grid grid-cols-[2fr,4fr,3fr,3fr,2fr] gap-4 mb-10 bg-gray-100 p-4 font-semibold border-2">
             <p>Image</p>

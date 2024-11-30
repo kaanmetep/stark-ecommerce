@@ -90,7 +90,7 @@ const Collection = () => {
                 <p>
                   <input
                     type="checkbox"
-                    value={"Men"}
+                    value={"men"}
                     className="mr-1"
                     onChange={(e) => onAddCategory(e.target.value)}
                   />
@@ -99,7 +99,7 @@ const Collection = () => {
                 <p>
                   <input
                     type="checkbox"
-                    value={"Women"}
+                    value={"women"}
                     className="mr-1"
                     onChange={(e) => onAddCategory(e.target.value)}
                   />
@@ -108,7 +108,7 @@ const Collection = () => {
                 <p>
                   <input
                     type="checkbox"
-                    value={"Kids"}
+                    value={"kids"}
                     className="mr-1"
                     onChange={(e) => onAddCategory(e.target.value)}
                   />
@@ -122,7 +122,7 @@ const Collection = () => {
                 <p>
                   <input
                     type="checkbox"
-                    value={"Topwear"}
+                    value={"topwear"}
                     className="mr-1"
                     onChange={(e) => onAddType(e.target.value)}
                   />
@@ -131,7 +131,7 @@ const Collection = () => {
                 <p>
                   <input
                     type="checkbox"
-                    value={"Bottomwear"}
+                    value={"bottomwear"}
                     className="mr-1"
                     onChange={(e) => onAddType(e.target.value)}
                   />
@@ -140,7 +140,7 @@ const Collection = () => {
                 <p>
                   <input
                     type="checkbox"
-                    value={"Winterwear"}
+                    value={"winterwear"}
                     className="mr-1"
                     onChange={(e) => onAddType(e.target.value)}
                   />
