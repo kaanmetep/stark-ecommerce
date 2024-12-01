@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Title from "../components/Title";
 import CartItem from "../components/CartItem";
 import CartTotals from "../components/CartTotals";
@@ -10,7 +10,6 @@ const Cart = () => {
   const { cartItems } = useShopContext();
   const { isAuthenticated } = useUserContext();
   const navigate = useNavigate();
-
   return (
     <div className="border-t ">
       <div className="mt-10">
@@ -24,7 +23,7 @@ const Cart = () => {
           <Title text1={"CART"} text2={"TOTALS"} className="justify-end" />
           <CartTotals />
           <button
-            className=" mt-8 text-white bg-black py-3 px-8 uppercase active:bg-gray-800 hover:bg-gray-600 transition-all delay-[30ms] ml-auto block"
+            className=" mt-8 text-white bg-black py-3 px-8 uppercase active:bg-gray-800 hover:bg-gray-600 transition-all delay-[30ms] ml-auto block text-xs sm:text-base"
             onClick={() => {
               if (cartItems.length === 0) {
                 return toast.error("You have no item in your cart!");

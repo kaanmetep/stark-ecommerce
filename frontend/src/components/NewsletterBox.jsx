@@ -1,13 +1,14 @@
 import React from "react";
-
+import { toast } from "react-toastify";
 const NewsletterBox = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    toast.success("You subscribed succesfully!");
   };
   return (
     <div className="mt-16">
       <div className="flex flex-col items-center justify-center">
-        <p className="text-2xl text-gray-800 mb-2 font-semibold">
+        <p className="text-2xl text-gray-800 mb-2 font-semibold text-center">
           Subscribe now & get 20% off
         </p>
         <p className="text-gray-600 text-center text-sm">

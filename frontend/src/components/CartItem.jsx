@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react";
 import React from "react";
+import { useEffect, useState } from "react";
 import { useShopContext } from "../contexts/ShopContext";
 import { assets } from "../assets/frontend_assets/assets";
 const CartItem = ({ cartItemObj }) => {
-  // TODO: LATER CREATE A ROUTE TO GET A SINGLE PRODUCT
-  const { currency, products, onDeleteCartItem, onChangeQuantity } =
-    useShopContext();
   const [currentItem, setCurrentItem] = useState(null);
   const [quantity, setQuantity] = useState(cartItemObj.quantity || 1);
+  const {
+    currency,
+    products,
+    onDeleteCartItem,
+    onChangeQuantity,
+    getItemById,
+  } = useShopContext();
   useEffect(() => {
-    const item = products.find((el) => el._id === cartItemObj?.productId);
+    const item = getItemById(cartItemObj.productId);
     if (item) {
       setCurrentItem(item);
     }
   }, [products, cartItemObj.productId]);
 
   return (
-    <div className="grid grid-cols-[6fr,2fr,1fr] justify-between items-center border-t border-b">
+    <div className=" sm:grid sm:grid-cols-[6fr,3fr,1fr] justify-between items-center border-t border-b">
       <div className="flex flex-col sm:flex-row gap-4 p-3">
         <img src={currentItem?.image[0]} alt="item_image" className="w-20" />
         <div>
@@ -31,37 +35,39 @@ const CartItem = ({ cartItemObj }) => {
           </div>
         </div>
       </div>
-      <input
-        type="number"
-        min="1"
-        max="50"
-        step="1"
-        value={quantity > 50 ? 50 : quantity}
-        onChange={(e) => {
-          const newQuantity = Number(e.target.value);
-          setQuantity(newQuantity);
-          onChangeQuantity(
-            cartItemObj.productId,
-            cartItemObj.size,
-            newQuantity
-          );
-        }}
-        onKeyDown={(e) => {
-          // allow only up and down keys
-          if (e.key !== "ArrowUp" && e.key !== "ArrowDown") {
-            e.preventDefault();
+      <div className="flex items-center sm:justify-between gap-4 pb-2 sm:pb-0 ml-2 sm:ml-0 ">
+        <input
+          type="number"
+          min="1"
+          max="50"
+          step="1"
+          value={quantity > 50 ? 50 : quantity}
+          onChange={(e) => {
+            const newQuantity = Number(e.target.value);
+            setQuantity(newQuantity);
+            onChangeQuantity(
+              cartItemObj.productId,
+              cartItemObj.size,
+              newQuantity
+            );
+          }}
+          onKeyDown={(e) => {
+            // allow only up and down keys
+            if (e.key !== "ArrowUp" && e.key !== "ArrowDown") {
+              e.preventDefault();
+            }
+          }}
+          className="border w-16 h-8 py-1 px-2 flex items-center "
+        />
+        <img
+          src={assets.bin_icon}
+          alt="bin_icon"
+          className="w-5 h-5 cursor-pointer"
+          onClick={() =>
+            onDeleteCartItem(cartItemObj.productId, cartItemObj.size)
           }
-        }}
-        className="border w-16 h-8 py-1 px-2 flex items-center "
-      />
-      <img
-        src={assets.bin_icon}
-        alt="bin_icon"
-        className="w-5 h-5 cursor-pointer"
-        onClick={() =>
-          onDeleteCartItem(cartItemObj.productId, cartItemObj.size)
-        }
-      />
+        />
+      </div>
     </div>
   );
 };

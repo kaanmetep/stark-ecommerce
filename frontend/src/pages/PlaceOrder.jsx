@@ -12,11 +12,14 @@ const PlaceOrder = () => {
   const navigate = useNavigate();
   const [selectedPaymentType, setSelectedPaymentType] = useState(null);
   const { cartItems, setCartItems } = useShopContext();
-  const { getCurrentUser } = useUserContext();
+  const { getCurrentUser, isAuthenticated } = useUserContext();
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (cartItems.length === 0) {
       return toast.error("You have no items in your cart!");
+    }
+    if (!isAuthenticated) {
+      return toast.error("You have to login to checkout!");
     }
     const result = await createOrder(cartItems);
     await getCurrentUser();

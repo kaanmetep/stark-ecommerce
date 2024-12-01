@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useShopContext } from "../contexts/ShopContext";
 const CartTotals = () => {
   const { currency, calculateCartSubtotal, shippingFee } = useShopContext();

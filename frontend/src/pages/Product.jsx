@@ -4,7 +4,6 @@ import { useShopContext } from "../contexts/ShopContext";
 import { toast } from "react-toastify";
 import Title from "../components/Title";
 import RelatedProducts from "../components/RelatedProducts";
-// TODO: LATER CREATE A ROUTE TO GET A SINGLE PRODUCT
 const Product = () => {
   const { productId } = useParams();
   const { products, currency, onAddCartItem, getItemById } = useShopContext();
