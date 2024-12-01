@@ -19,11 +19,11 @@ const Orders = () => {
         <Title text1={"MY"} text2={"ORDERS"} />
         <div>
           {currentUser &&
-            currentUser?.orders?.map((item, index) => (
-              <div className="border-t border-b p-2">
+            currentUser?.orders?.map((item) => (
+              <div className="border-t border-b border-black p-2">
                 <div>
                   <p className="mb-2 font-bold text-lg">
-                    {index + 1}. Order: {formatDate(item.date)}
+                    {formatDate(item.date)}
                   </p>
                   {item?.items?.map((order) => (
                     <div className="grid grid-cols-[1fr,3fr,1fr,1fr,2fr,1fr] gap-4 items-center mb-4">

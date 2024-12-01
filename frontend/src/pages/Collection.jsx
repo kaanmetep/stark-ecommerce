@@ -152,14 +152,14 @@ const Collection = () => {
         </div>
         {/* PRODUCTS --- RIGHT SIDE OF COLLECTION PAGE */}
         <div className=" flex-1">
-          <div className="flex justify-between">
+          <div className="flex flex-col sm:flex-row justify-between">
             <Title text1={"ALL"} text2={"COLLECTIONS"} />
             <select
               name=""
               id=""
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="border p-1 border-gray-400"
+              className="border p-1 border-gray-400 w-fit"
             >
               <option value="relavent">Sort by: Relavent</option>
               <option value="lowtohigh">Sort by: Low to High</option>
