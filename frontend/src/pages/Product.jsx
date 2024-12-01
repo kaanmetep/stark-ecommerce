@@ -21,8 +21,9 @@ const Product = () => {
     if (!size) {
       return toast.error("Please select a size!");
     } else {
-      onAddCartItem(productId, size);
+      const newCard = onAddCartItem(productId, size);
       toast.success("Item added to your cart!");
+      localStorage.setItem("cart", JSON.stringify(newCard));
     }
   };
   useEffect(() => fetchProductData(), [productId, products]);

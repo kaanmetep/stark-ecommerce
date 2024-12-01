@@ -9,7 +9,7 @@ const CartItem = ({ cartItemObj }) => {
   const [currentItem, setCurrentItem] = useState(null);
   const [quantity, setQuantity] = useState(cartItemObj.quantity || 1);
   useEffect(() => {
-    const item = products.find((el) => el._id === cartItemObj.productId);
+    const item = products.find((el) => el._id === cartItemObj?.productId);
     if (item) {
       setCurrentItem(item);
     }
@@ -26,7 +26,7 @@ const CartItem = ({ cartItemObj }) => {
               {currency} {currentItem?.price * cartItemObj.quantity}
             </p>
             <p className="bg-gray-100 font-medium py-1 px-3 text-center">
-              {cartItemObj.size}
+              {cartItemObj.size.toUpperCase()}
             </p>
           </div>
         </div>

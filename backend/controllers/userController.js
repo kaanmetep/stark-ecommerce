@@ -107,3 +107,19 @@ export const adminLogin = async (req, res) => {
     res.status(500).json({ status: false, message: err.message });
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    const user = await userModel
+      .findById(req.params.id)
+      .populate("orders", "-user");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: false, message: "User doesnt exits" });
+    }
+    return res.status(200).json({ status: true, message: user });
+  } catch (err) {
+    res.status(500).json({ status: false, message: err.message });
+  }
+};

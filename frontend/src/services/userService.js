@@ -26,3 +26,12 @@ export const register = async (credentials) => {
     throw new Error(errorMessage);
   }
 };
+export const getUser = async (id) => {
+  try {
+    const user = await axios.get(`${URL}/api/user/${id}`);
+    return user.data;
+  } catch (err) {
+    console.error(err.message);
+    throw new Error("Couldnt fetch user data!");
+  }
+};

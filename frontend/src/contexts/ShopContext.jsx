@@ -9,7 +9,10 @@ const ShopContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
   useEffect(() => {
     (async () => {
@@ -21,15 +24,20 @@ const ShopContextProvider = ({ children }) => {
     })();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   const getItemById = (productId) => {
     const item = products.find((item) => item._id === productId);
     return item;
   };
 
   const calculateCartSubtotal = () => {
-    const total = cartItems.reduce(
+    const total = cartItems?.reduce(
       (acc, curr) =>
-        Number(getItemById(curr.productId).price) * Number(curr.quantity) + acc,
+        Number(getItemById(curr.productId)?.price) * Number(curr.quantity) +
+        acc,
       0
     );
     return total;
@@ -48,6 +56,7 @@ const ShopContextProvider = ({ children }) => {
       const existingItem = prev.find(
         (item) => item.productId === productId && item.size === size
       );
+
       if (existingItem) {
         return prev.map((item) =>
           item.productId === productId && item.size === size
@@ -77,6 +86,7 @@ const ShopContextProvider = ({ children }) => {
     calculateCartSubtotal,
     getItemById,
     onChangeQuantity,
+    setCartItems,
   };
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };

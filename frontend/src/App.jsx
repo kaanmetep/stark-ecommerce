@@ -13,6 +13,9 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 import PageNotFound from "./pages/PageNotFound";
+import Profile from "./pages/Profile";
+import ProtectLoginPage from "./pages/ProtectLoginPage";
+import ProtectProfilePage from "./pages/ProtectProfilePage";
 const App = () => {
   return (
     <>
@@ -30,14 +33,46 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:productId" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/place-order" element={<PlaceOrder />} />
-          <Route path="/orders" element={<Orders />} />
+
+          <Route
+            path="/login"
+            element={
+              <ProtectLoginPage>
+                <Login />
+              </ProtectLoginPage>
+            }
+          />
+
+          <Route
+            path="/place-order"
+            element={
+              <ProtectProfilePage>
+                <PlaceOrder />
+              </ProtectProfilePage>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectProfilePage>
+                <Orders />
+              </ProtectProfilePage>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectProfilePage>
+                <Profile />
+              </ProtectProfilePage>
+            }
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />

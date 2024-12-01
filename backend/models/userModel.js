@@ -15,10 +15,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: [8, "Password has to be at least 8 characters."],
     },
-    cartData: {
-      type: Object,
-      default: {},
-    },
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "order",
+      },
+    ],
   },
   {
     minimize: false,

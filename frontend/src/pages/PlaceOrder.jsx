@@ -4,10 +4,26 @@ import CartTotals from "../components/CartTotals";
 import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/frontend_assets/assets";
 import { useState } from "react";
-
+import { toast } from "react-toastify";
+import { createOrder } from "../services/orderService";
+import { useShopContext } from "../contexts/ShopContext";
+import { useUserContext } from "../contexts/UserContext";
 const PlaceOrder = () => {
-  const [selectedPaymentType, setSelectedPaymentType] = useState(null);
   const navigate = useNavigate();
+  const [selectedPaymentType, setSelectedPaymentType] = useState(null);
+  const { cartItems, setCartItems } = useShopContext();
+  const { getCurrentUser } = useUserContext();
+  const handlePlaceOrder = async (e) => {
+    e.preventDefault();
+    if (cartItems.length === 0) {
+      return toast.error("You have no items in your cart!");
+    }
+    const result = await createOrder(cartItems);
+    await getCurrentUser();
+    toast.success("You succesfully ordered!");
+    navigate("/home");
+    setCartItems([]);
+  };
   return (
     <div className="border-t">
       <div className="mt-10 ">
@@ -119,7 +135,7 @@ const PlaceOrder = () => {
             </div>
             <button
               className="ml-auto mt-8 text-white uppercase bg-black py-2 px-12"
-              onClick={() => navigate("/orders")}
+              onClick={handlePlaceOrder}
             >
               Place Order
             </button>

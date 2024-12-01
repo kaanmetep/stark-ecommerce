@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../components/Title";
 import CartItem from "../components/CartItem";
 import CartTotals from "../components/CartTotals";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useShopContext } from "../contexts/ShopContext";
+import { useUserContext } from "../contexts/UserContext";
 const Cart = () => {
   const { cartItems } = useShopContext();
+  const { isAuthenticated } = useUserContext();
   const navigate = useNavigate();
+
   return (
     <div className="border-t ">
       <div className="mt-10">
@@ -25,6 +28,9 @@ const Cart = () => {
             onClick={() => {
               if (cartItems.length === 0) {
                 return toast.error("You have no item in your cart!");
+              }
+              if (!isAuthenticated) {
+                return toast.error("Please log in first to checkout.");
               }
               navigate("/place-order");
             }}

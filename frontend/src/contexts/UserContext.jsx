@@ -1,10 +1,38 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { login, register } from "../services/userService";
+import { login, register, getUser } from "../services/userService";
+import { jwtDecode } from "jwt-decode";
 const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getCurrentUser();
+    };
+
+    fetchData();
+  }, []);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+  const getCurrentUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("User is not logged in!");
+      }
+      const decodedToken = jwtDecode(token);
+      const user = await getUser(decodedToken.id);
+      setCurrentUser(user.message);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   const loginUser = async (credentials) => {
     try {
       setIsLoginLoading(true);
@@ -26,6 +54,7 @@ const UserContextProvider = ({ children }) => {
       if (token) {
         setIsAuthenticated(true);
         localStorage.setItem("token", token);
+
         return null;
       }
     } catch (err) {
@@ -34,11 +63,22 @@ const UserContextProvider = ({ children }) => {
       setIsLoginLoading(false);
     }
   };
+  const logout = () => {
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+      setIsAuthenticated(false);
+      return true;
+    }
+  };
+
   const value = {
     isAuthenticated,
     loginUser,
     registerUser,
     isLoginLoading,
+    logout,
+    currentUser,
+    getCurrentUser,
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

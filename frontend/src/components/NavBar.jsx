@@ -3,11 +3,14 @@ import { useState } from "react";
 import { assets } from "../assets/frontend_assets/assets.js";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useShopContext } from "../contexts/ShopContext.jsx";
+import { useUserContext } from "../contexts/UserContext.jsx";
+import { toast } from "react-toastify";
 const NavBar = () => {
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const { showSearch, setShowSearch, cartItems } = useShopContext();
+  const { isAuthenticated, logout } = useUserContext();
   const location = useLocation();
-  const navigate = useNavigate();
   const onClickSearchIcon = () => {
     if (location.pathname !== "/collection") {
       navigate("/collection");
@@ -50,20 +53,36 @@ const NavBar = () => {
           className="w-4 cursor-pointer"
           onClick={onClickSearchIcon}
         />
-        <Link to={"/login"}>
+        <Link to={isAuthenticated ? "/profile" : "/login"}>
           <div className="group z-10">
             <img
               src={assets.profile_icon}
               alt="profile_icon"
               className="w-4 cursor-pointer"
             />
-            <div className=" group-hover:block absolute hidden  right-0 pt-4 px-10">
-              <div className="flex flex-col gap-2 py-3 px-4 text-gray-800 w-36 bg-slate-100">
-                <a href="">My Profile</a>
-                <a href="">Orders</a>
-                <a href="">Logout</a>
+            {isAuthenticated && (
+              <div className=" group-hover:block absolute hidden  right-0 pt-4 px-10">
+                <div className="flex flex-col gap-2 py-3 px-4 text-gray-800 w-36 bg-slate-100">
+                  <Link to="/profile">
+                    <p className="hover:underline">My Profile</p>
+                  </Link>
+                  <Link to="/orders">
+                    <p className="hover:underline">Orders</p>
+                  </Link>
+                  <p
+                    onClick={() => {
+                      const success = logout();
+                      if (success) {
+                        toast.success("You logged out!");
+                      }
+                    }}
+                    className="hover:underline"
+                  >
+                    Logout
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </Link>
         <NavLink to="/cart">
