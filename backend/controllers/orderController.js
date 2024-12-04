@@ -17,3 +17,12 @@ export const createOrder = async (req, res) => {
     res.status(500).json({ status: false, message: err.message });
   }
 };
+
+export const getOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.status(200).json({ status: true, message: orders });
+  } catch (err) {
+    res.status(500).json({ status: false, message: err.message });
+  }
+};

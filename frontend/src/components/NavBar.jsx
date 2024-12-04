@@ -61,7 +61,7 @@ const NavBar = () => {
               className="w-4 cursor-pointer"
             />
             {isAuthenticated && (
-              <div className=" group-hover:block absolute hidden  right-0 pt-4 px-10">
+              <div className=" group-hover:block absolute hidden  right-0 pt-4 px-10 lg:px-20">
                 <div className="flex flex-col gap-2 py-3 px-4 text-gray-800 w-36 bg-slate-100">
                   <Link to="/profile">
                     <p className="hover:underline">My Profile</p>

@@ -39,6 +39,15 @@ export const getProducts = async () => {
     throw err;
   }
 };
+export const getProduct = async (id) => {
+  try {
+    const response = await axios.get(`${URL}/api/products/${id}`);
+    return response.data.message;
+  } catch (err) {
+    console.error(err.message);
+    throw err;
+  }
+};
 export const deleteProduct = async (id) => {
   try {
     const response = await axios.delete(`${URL}/api/products/${id}`, {
@@ -47,6 +56,16 @@ export const deleteProduct = async (id) => {
       },
     });
     return response.data;
+  } catch (err) {
+    console.error(err.message);
+    throw err;
+  }
+};
+
+export const getOrders = async () => {
+  try {
+    const response = await axios.get(`${URL}/api/orders`);
+    return response.data.message;
   } catch (err) {
     console.error(err.message);
     throw err;
