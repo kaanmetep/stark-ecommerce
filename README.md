@@ -1,4 +1,5 @@
-This is a portfolio project showcasing an e-commerce platform with the following features:
+# This is a portfolio project showcasing an e-commerce platform with the following features:
+Live:https://stark-ecommerce-front.vercel.app/
 
 ## Technologies Used
 - **Frontend**: React.js, Tailwind CSS  
@@ -8,7 +9,6 @@ This is a portfolio project showcasing an e-commerce platform with the following
 
 ## Features
 
-### User Functionality:
 1. **User Registration & Login**:  
    Users can create an account and log in to access the platform.  
 
