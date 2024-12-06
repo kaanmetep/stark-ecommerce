@@ -1,6 +1,6 @@
 ## This is a portfolio project showcasing an e-commerce platform with the following features:
 
-Live:https://stark-ecommerce-front.vercel.app/
+Live: stark-ecommerce-front.vercel.app/
 
 ## Technologies Used
 - **Frontend**: React.js, Tailwind CSS  
