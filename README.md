@@ -1,5 +1,3 @@
-# This is a portfolio project
-
 This is a portfolio project showcasing an e-commerce platform with the following features:
 
 ## Technologies Used
