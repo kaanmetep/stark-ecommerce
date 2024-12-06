@@ -1,4 +1,5 @@
-# This is a portfolio project showcasing an e-commerce platform with the following features:
+## This is a portfolio project showcasing an e-commerce platform with the following features:
+
 Live:https://stark-ecommerce-front.vercel.app/
 
 ## Technologies Used
