@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "http://localhost:4000";
+import { URL } from "../../config";
 export const getProducts = async () => {
   try {
     const response = await axios.get(`${URL}/api/products`);

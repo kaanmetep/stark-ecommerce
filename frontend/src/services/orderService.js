@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "http://localhost:4000";
+import { URL } from "../../config";
 
 export const createOrder = async (cartItems) => {
   try {
