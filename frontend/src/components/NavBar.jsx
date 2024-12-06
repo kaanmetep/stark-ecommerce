@@ -45,6 +45,13 @@ const NavBar = () => {
           <p className="text-gray-600">CONTACT</p>
           <hr className="bg-gray-900 w-1/2 h-[1.5px] hidden" />
         </NavLink>
+        <a
+          href="https://stark-ecommerce-admin.vercel.app/"
+          className="underline"
+          target="_blank"
+        >
+          Admin Page
+        </a>
       </div>
       <div className="flex place-items-center gap-4">
         <img
